@@ -1,6 +1,10 @@
 {% macro generate_contract_yml(model_name) %}
 
-    {% set relation = ref(model_name) %}
+    {% set relation = adapter.get_relation(
+        database = target.database,
+        schema   = target.schema,
+        identifier = model_name
+    ) %}
 
     {% set columns = adapter.get_columns_in_relation(relation) %}
 
