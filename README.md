@@ -17,8 +17,8 @@ Add the following to your project's `packages.yml`, then run `dbt deps`.
 
 ```yaml
 packages:
-  - git: "https://github.com/<your-username>/dbt-contract-gen"
-    revision: main
+  - git: "https://github.com/TheDamiofLagos/dbt-contract-gen.git"
+    revision: v0.1.0
 ```
 
 ---
