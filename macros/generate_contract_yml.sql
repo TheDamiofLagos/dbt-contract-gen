@@ -1,10 +1,16 @@
-{% macro generate_contract_yml(model_name, schema) %}
+{% macro generate_contract_yml(model_name, schema=none, enforced=false) %}
 
     {#-
       SNOWFLAKE ONLY: This macro introspects column types using Snowflake's information schema.
       Type normalization is calibrated for Snowflake dtypes. Running against Postgres,
       Redshift, BigQuery, or other adapters will produce incorrect or unmapped types.
     -#}
+
+    {#- Resolve schema: use the caller-supplied value or fall back to target.schema with a warning -#}
+    {%- if schema is none -%}
+        {%- set schema = target.schema -%}
+        {{ log("Warning: no schema argument provided. Defaulting to target.schema = '" ~ schema ~ "'. If your project uses a custom generate_schema_name macro and the model lives in a different schema, pass schema explicitly.", info=true) }}
+    {%- endif -%}
 
     {#- Resolve the relation object from the adapter -#}
     {%- set relation = adapter.get_relation(
@@ -46,7 +52,12 @@
     {%- do yaml_lines.append('  - name: "' ~ model_name | replace('"', '\\"') ~ '"') -%}
     {%- do yaml_lines.append("    config:") -%}
     {%- do yaml_lines.append("      contract:") -%}
-    {%- do yaml_lines.append("        enforced: true") -%}
+    {#- enforced defaults to false — flip to true only after verifying all type mappings are correct -#}
+    {%- if enforced -%}
+        {%- do yaml_lines.append("        enforced: true") -%}
+    {%- else -%}
+        {%- do yaml_lines.append("        enforced: false") -%}
+    {%- endif -%}
     {%- do yaml_lines.append("    columns:") -%}
 
     {%- for col in columns -%}
