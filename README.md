@@ -137,17 +137,20 @@ Precision and scale are stripped before mapping (e.g. `NUMBER(38,0)` is treated 
 
 Integration tests live in `integration_tests/`. They require a live Snowflake connection.
 
-Set the following environment variables before running:
+Set the following environment variables before running. Use either key-pair or password authentication depending on your Snowflake setup.
 
+**Key-pair authentication (recommended):**
 ```bash
 export SNOWFLAKE_ACCOUNT=<your_account>
 export SNOWFLAKE_USER=<your_user>
-export SNOWFLAKE_PASSWORD=<your_password>
+export SNOWFLAKE_PRIVATE_KEY_PATH=<path_to_your_.p8_key_file>
 export SNOWFLAKE_ROLE=<your_role>
 export SNOWFLAKE_DATABASE=<your_database>
 export SNOWFLAKE_WAREHOUSE=<your_warehouse>
 export SNOWFLAKE_SCHEMA=<your_schema>
 ```
+
+**Password authentication:** set the same variables but replace `SNOWFLAKE_PRIVATE_KEY_PATH` with `SNOWFLAKE_PASSWORD`, and run with `--target dev_password`.
 
 Then run:
 
