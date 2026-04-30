@@ -133,6 +133,36 @@ Precision and scale are stripped before mapping (e.g. `NUMBER(38,0)` is treated 
 
 ---
 
+## Development and testing
+
+Integration tests live in `integration_tests/`. They require a live Snowflake connection.
+
+Set the following environment variables before running:
+
+```bash
+export SNOWFLAKE_ACCOUNT=<your_account>
+export SNOWFLAKE_USER=<your_user>
+export SNOWFLAKE_PASSWORD=<your_password>
+export SNOWFLAKE_ROLE=<your_role>
+export SNOWFLAKE_DATABASE=<your_database>
+export SNOWFLAKE_WAREHOUSE=<your_warehouse>
+export SNOWFLAKE_SCHEMA=<your_schema>
+```
+
+Then run:
+
+```bash
+cd integration_tests
+dbt deps
+dbt seed
+dbt run
+dbt run-operation generate_contract_yml --args '{model_name: test_contract_model, schema: <your_schema>}'
+```
+
+The seed creates a table with columns covering the key Snowflake types: `INTEGER`, `VARCHAR`, `FLOAT`, `BOOLEAN`, and `DATE`. The macro output should show each mapped to its dbt contract equivalent.
+
+---
+
 ## Roadmap
 
 - Constraint inference (`not_null`) via `INFORMATION_SCHEMA`

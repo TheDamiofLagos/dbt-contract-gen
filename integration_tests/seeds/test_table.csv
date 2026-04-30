@@ -1,0 +1,4 @@
+id,name,amount,is_active,event_date
+1,alice,10.50,true,2024-01-01
+2,bob,20.00,false,2024-02-15
+3,carol,5.75,true,2024-03-30

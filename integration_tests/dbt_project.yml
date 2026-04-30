@@ -1,0 +1,22 @@
+name: dbt_contract_gen_integration_tests
+version: '0.1.0'
+config-version: 2
+
+profile: integration_tests
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+
+models:
+  dbt_contract_gen_integration_tests:
+    +materialized: table
+
+seeds:
+  dbt_contract_gen_integration_tests:
+    test_table:
+      +column_types:
+        id: integer
+        name: varchar
+        amount: float
+        is_active: boolean
+        event_date: date
