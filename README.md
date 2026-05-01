@@ -18,7 +18,7 @@ Add the following to your project's `packages.yml`, then run `dbt deps`.
 ```yaml
 packages:
   - git: "https://github.com/TheDamiofLagos/dbt-contract-gen.git"
-    revision: v0.1.0
+    revision: v0.1.2
 ```
 
 ---
@@ -163,6 +163,20 @@ dbt run-operation generate_contract_yml --args '{model_name: test_contract_model
 ```
 
 The seed creates a table with columns covering the key Snowflake types: `INTEGER`, `VARCHAR`, `FLOAT`, `BOOLEAN`, and `DATE`. The macro output should show each mapped to its dbt contract equivalent.
+
+---
+
+## Contributions
+
+Feedback and contributions are welcomed and encouraged. Please open an issue or start a discussion if you would like to request a feature or contribute to this project.
+
+---
+
+## Verified data warehouses
+
+This package has been tested against the following data warehouses:
+
+- Snowflake
 
 ---
 
